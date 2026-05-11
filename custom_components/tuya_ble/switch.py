@@ -91,7 +91,7 @@ def set_fingerbot_program_repeat_forever(
         datapoint = self._device.datapoints[product.fingerbot.program]
         if datapoint and type(datapoint.value) is bytes:
             new_value = (
-                int.to_bytes(0xFFFF if value else 1, 2, "big") + 
+                int.to_bytes(0xFFFF if value else 1, 2, "big") +
                 datapoint.value[2:]
             )
             self._hass.create_task(datapoint.set_value(new_value))
@@ -240,6 +240,47 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
             ),
         },
     ),
+    "kg": TuyaBLECategorySwitchMapping(
+        products={
+            **dict.fromkeys(
+                [
+                    "mknd4lci",
+                    "riecov42"
+                ],  # Fingerbot Plus
+                [
+                    TuyaBLEFingerbotSwitchMapping(dp_id=1),
+                    TuyaBLEReversePositionsMapping(dp_id=104),
+                    TuyaBLESwitchMapping(
+                        dp_id=107,
+                        description=SwitchEntityDescription(
+                            key="manual_control",
+                            icon="mdi:gesture-tap-box",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=1,
+                        description=SwitchEntityDescription(
+                            key="program",
+                            icon="mdi:repeat",
+                        ),
+                        is_available=is_fingerbot_in_program_mode,
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=109,
+                        description=SwitchEntityDescription(
+                            key="program_repeat_forever",
+                            icon="mdi:repeat",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                        getter=get_fingerbot_program_repeat_forever,
+                        is_available=is_fingerbot_in_program_mode,
+                        setter=set_fingerbot_program_repeat_forever,
+                    ),
+                ],
+            ),
+        },
+    ),
     "wk": TuyaBLECategorySwitchMapping(
         products={
             **dict.fromkeys(
@@ -323,6 +364,59 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
                     description=SwitchEntityDescription(
                         key="water_valve",
                         entity_registry_enabled_default=True,
+                    ),
+                ),
+            ],
+            "hfgdqhho": [  # Irrigation computer
+                TuyaBLESwitchMapping(
+                    dp_id=105,
+                    description=SwitchEntityDescription(
+                        key="water_valve_z1",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+                TuyaBLESwitchMapping(
+                    dp_id=104,
+                    description=SwitchEntityDescription(
+                        key="water_valve_z2",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+            ],
+            "fnlw6npo": [  # Irrigation computer - BWV-YC02S
+                TuyaBLESwitchMapping(
+                    dp_id=105,
+                    description=SwitchEntityDescription(
+                        key="water_valve_z1",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+                TuyaBLESwitchMapping(
+                    dp_id=104,
+                    description=SwitchEntityDescription(
+                        key="water_valve_z2",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+            ],
+        },
+    ),
+    "sfkzq": TuyaBLECategorySwitchMapping(
+        products={
+            "nxquc5lb": [ # Smart water timer - SOP10
+                TuyaBLESwitchMapping(
+                    dp_id=1,
+                    description=SwitchEntityDescription(
+                        key="water_valve",
+                        entity_registry_enabled_default=True,
+                    ),
+                ),
+                TuyaBLESwitchMapping(
+                    dp_id=14,
+                    description=SwitchEntityDescription(
+                        key="weather_switch",
+                        icon="mdi:cloud-question",
+                        entity_registry_enabled_default=False,
                     ),
                 ),
             ],

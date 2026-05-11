@@ -49,6 +49,15 @@
             "countdown_duration": {
                 "name": "Irrigation duration"
             },
+            "countdown": {
+                "name": "Irrigation duration"
+            },
+            "countdown_duration_z1": {
+                "name": "Irrigation duration - Zone 1"
+            },
+            "countdown_duration_z2": {
+                "name": "Irrigation duration - Zone 2"
+            },
             "down_position": {
                 "name": "Down position"
             },
@@ -82,6 +91,12 @@
                     "push": "Push",
                     "switch": "Switch"
                 }
+            },
+            "weather_delay": {
+                "name": "Weather delay"
+            },
+            "smart_weather": {
+                "name": "Smart weather"
             },
             "reminder_mode": {
                 "name": "Reminder mode",
@@ -136,6 +151,9 @@
             "moisture": {
                 "name": "Moisture"
             },
+            "work_state": {
+                "name": "Work state"
+            },
             "residual_electricity": {
                 "name": "Battery"
             },
@@ -147,6 +165,18 @@
             },
             "time_left": {
                 "name": "Remaining irrigation time"
+            },
+            "use_time": {
+                "name": "Accumulated use time"
+            },
+            "use_time_one": {
+                "name": "Last irrigation time"
+            },
+            "use_time_z1": {
+                "name": "Last irrigation time - Zone 1"
+            },
+            "use_time_z2": {
+                "name": "Last irrigation time - Zone 2"
             },
             "water_intake": {
                 "name": "Water intake"
@@ -203,6 +233,15 @@
             },
             "water_valve": {
                 "name": "Irrigation valve"
+            },
+            "weather_switch": {
+                "name": "Weather switch"
+            },
+            "water_valve_z1": {
+                "name": "Irrigation valve - Zone 1"
+            },
+            "water_valve_z2": {
+                "name": "Irrigation valve - Zone 2"
             },
             "window_check": {
                 "name": "Window Check"

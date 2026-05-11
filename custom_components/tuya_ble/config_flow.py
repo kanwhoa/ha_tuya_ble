@@ -7,7 +7,6 @@ import pycountry
 from typing import Any
 
 import voluptuous as vol
-from tuya_iot import AuthType
 
 from homeassistant.config_entries import (
     ConfigEntry,
@@ -18,31 +17,29 @@ from homeassistant.components.bluetooth import (
     BluetoothServiceInfoBleak,
     async_discovered_service_info,
 )
-from homeassistant.const import CONF_ADDRESS
+from homeassistant.const import (
+    CONF_ADDRESS,
+    CONF_COUNTRY_CODE,
+    CONF_PASSWORD,
+    CONF_USERNAME,
+)
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowHandler, FlowResult
 
 from homeassistant.components.tuya.const import (
-    CONF_ACCESS_ID,
-    CONF_ACCESS_SECRET,
-    CONF_APP_TYPE,
-    CONF_AUTH_TYPE,
-    CONF_COUNTRY_CODE,
     CONF_ENDPOINT,
-    CONF_PASSWORD,
-    CONF_USERNAME,
-    SMARTLIFE_APP,
-    TUYA_COUNTRIES,
     TUYA_RESPONSE_CODE,
     TUYA_RESPONSE_MSG,
     TUYA_RESPONSE_SUCCESS,
-    TUYA_SMART_APP,
 )
 
 from .tuya_ble import SERVICE_UUID, TuyaBLEDeviceCredentials
 
 from .const import (
     DOMAIN,
+    CONF_ACCESS_ID,
+    CONF_ACCESS_SECRET,
+    TUYA_COUNTRIES,
 )
 from .devices import TuyaBLEData, get_device_readable_name
 from .cloud import HASSTuyaBLEDeviceManager
@@ -67,7 +64,6 @@ async def _try_login(
 
     data = {
         CONF_ENDPOINT: country.endpoint,
-        CONF_AUTH_TYPE: AuthType.CUSTOM,
         CONF_ACCESS_ID: user_input[CONF_ACCESS_ID],
         CONF_ACCESS_SECRET: user_input[CONF_ACCESS_SECRET],
         CONF_USERNAME: user_input[CONF_USERNAME],
@@ -75,17 +71,10 @@ async def _try_login(
         CONF_COUNTRY_CODE: country.country_code,
     }
 
-    for app_type in (TUYA_SMART_APP, SMARTLIFE_APP, ""):
-        data[CONF_APP_TYPE] = app_type
-        if app_type == "":
-            data[CONF_AUTH_TYPE] = AuthType.CUSTOM
-        else:
-            data[CONF_AUTH_TYPE] = AuthType.SMART_HOME
+    response = await manager._login(data, True)
 
-        response = await manager._login(data, True)
-
-        if response.get(TUYA_RESPONSE_SUCCESS, False):
-            return data
+    if response.get(TUYA_RESPONSE_SUCCESS, False):
+        return data
 
     errors["base"] = "login_error"
     if response:

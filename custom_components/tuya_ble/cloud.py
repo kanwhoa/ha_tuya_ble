@@ -7,17 +7,16 @@ from dataclasses import dataclass
 import json
 from typing import Any, Iterable
 
-from homeassistant.const import CONF_ADDRESS, CONF_DEVICE_ID
-from homeassistant.core import HomeAssistant
-from homeassistant.components.tuya.const import (
-    CONF_ACCESS_ID,
-    CONF_ACCESS_SECRET,
-    CONF_APP_TYPE,
-    CONF_AUTH_TYPE,
+from homeassistant.const import (
+    CONF_ADDRESS,
     CONF_COUNTRY_CODE,
-    CONF_ENDPOINT,
+    CONF_DEVICE_ID,
     CONF_PASSWORD,
     CONF_USERNAME,
+)
+from homeassistant.core import HomeAssistant
+from homeassistant.components.tuya.const import (
+    CONF_ENDPOINT,
     DOMAIN as TUYA_DOMAIN,
     TUYA_RESPONSE_RESULT,
     TUYA_RESPONSE_SUCCESS,
@@ -30,9 +29,6 @@ from homeassistant.helpers.update_coordinator import (
 
 from tuya_iot import (
     TuyaOpenAPI,
-    AuthType,
-    TuyaOpenMQ,
-    TuyaDeviceManager,
 )
 
 from .tuya_ble import (
@@ -53,6 +49,11 @@ from .const import (
     TUYA_API_DEVICES_URL,
     TUYA_API_FACTORY_INFO_URL,
     TUYA_FACTORY_INFO_MAC,
+    TUYA_API_DEVICES_URL,
+    TUYA_API_FACTORY_INFO_URL,
+    TUYA_FACTORY_INFO_MAC,
+    CONF_ACCESS_ID,
+    CONF_ACCESS_SECRET,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -69,11 +70,9 @@ CONF_TUYA_LOGIN_KEYS = [
     CONF_ENDPOINT,
     CONF_ACCESS_ID,
     CONF_ACCESS_SECRET,
-    CONF_AUTH_TYPE,
     CONF_USERNAME,
     CONF_PASSWORD,
     CONF_COUNTRY_CODE,
-    CONF_APP_TYPE,
 ]
 
 CONF_TUYA_DEVICE_KEYS = [
@@ -132,7 +131,6 @@ class HASSTuyaBLEDeviceManager(AbstaractTuyaBLEDeviceManager):
             endpoint=data.get(CONF_ENDPOINT, ""),
             access_id=data.get(CONF_ACCESS_ID, ""),
             access_secret=data.get(CONF_ACCESS_SECRET, ""),
-            auth_type=data.get(CONF_AUTH_TYPE, ""),
         )
         api.set_dev_channel("hass")
 
@@ -141,15 +139,11 @@ class HASSTuyaBLEDeviceManager(AbstaractTuyaBLEDeviceManager):
             data.get(CONF_USERNAME, ""),
             data.get(CONF_PASSWORD, ""),
             data.get(CONF_COUNTRY_CODE, ""),
-            data.get(CONF_APP_TYPE, ""),
         )
 
         if self._is_login_success(response):
             _LOGGER.debug("Successful login for %s", data[CONF_USERNAME])
             if add_to_cache:
-                auth_type = data[CONF_AUTH_TYPE]
-                if type(auth_type) is AuthType:
-                    data[CONF_AUTH_TYPE] = auth_type.value
                 cache_key = self._get_cache_key(data)
                 cache_item = _cache.get(cache_key)
                 if cache_item:

@@ -128,6 +128,13 @@ The integration works locally, but connection to Tuya BLE device requires device
             <td>Irrigation computer</td>
         </tr>
     </tbody>
+    <tbody>
+        <tr>
+            <td><code>sfkzq</code></td>
+            <td><code>nxquc5lb</code></td>
+            <td>Water valve</td>
+        </tr>
+    </tbody>
 </table>
 
 ### Fingerbot notes

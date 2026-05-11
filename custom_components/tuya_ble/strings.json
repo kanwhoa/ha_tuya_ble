@@ -64,6 +64,15 @@
       },
       "countdown_duration": {
         "name": "Irrigation duration"
+      },
+      "countdown": {
+        "name": "Irrigation duration"
+      },
+            "countdown_duration_z1": {
+        "name": "Irrigation duration - Zone 1"
+      },
+      "countdown_duration_z2": {
+        "name": "Irrigation duration - Zone 2"
       }
     },
     "select": {
@@ -74,6 +83,12 @@
           "push": "Push",
           "switch": "[%key:component::switch::entity_component::_::name%]"
         }
+      },
+      "weather_delay": {
+        "name": "Weather delay"
+      },
+      "smart_weather": {
+        "name": "Smart weather"
       },
       "temperature_unit": {
         "name": "Temperature unit"
@@ -139,6 +154,9 @@
       "water_intake": {
         "name": "Water intake"
       },
+      "work_state": {
+        "name": "Work state"
+      },
       "residual_electricity": {
           "name": "Battery"
       },
@@ -156,6 +174,18 @@
       },
       "time_left": {
           "name": "Remaining irrigation time"
+      },
+      "use_time": {
+        "name": "Accumulated use time"
+      },
+      "use_time_one": {
+      "name": "Last irrigation time"
+      },
+      "use_time_z1": {
+          "name": "Last irrigation time - Zone 1"
+      },
+      "use_time_z2": {
+          "name": "Last irrigation time - Zone 2"
       }
     },
     "switch": {
@@ -206,7 +236,16 @@
       },            
       "water_valve": {
           "name": "Irrigation valve"
-      }    
+      },
+      "weather_switch" {
+          "name": "Weather switch"
+      },
+      "water_valve_z1": {
+          "name": "Irrigation valve - Zone 1"
+      },
+      "water_valve_z2": {
+          "name": "Irrigation valve - Zone 2"
+      }	  
     },
     "text": {
       "program": {

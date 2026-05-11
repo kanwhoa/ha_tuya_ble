@@ -51,9 +51,45 @@ class TuyaBLEFingerbotModeMapping(TuyaBLESelectMapping):
             entity_category=EntityCategory.CONFIG,
             options=
                 [
-                    FINGERBOT_MODE_PUSH, 
+                    FINGERBOT_MODE_PUSH,
                     FINGERBOT_MODE_SWITCH,
                     FINGERBOT_MODE_PROGRAM,
+                ],
+        )
+    )
+
+
+@dataclass
+class TuyaBLEWeatherDelayMapping(TuyaBLESelectMapping):
+    description: SelectEntityDescription = field(
+        default_factory=lambda: SelectEntityDescription(
+            key="weather_delay",
+            entity_category=EntityCategory.CONFIG,
+            options=
+                [
+                    "cancel",
+                    "24h",
+                    "48h",
+                    "72h",
+                    "96h",
+                    "120h",
+                    "144h",
+                    "168h",
+                ],
+        )
+    )
+
+@dataclass
+class TuyaBLESmartWeatherMapping(TuyaBLESelectMapping):
+    description: SelectEntityDescription = field(
+        default_factory=lambda: SelectEntityDescription(
+            key="smart_weather",
+            entity_category=EntityCategory.CONFIG,
+            options=
+                [
+                    "sunny",
+                    "cloudy",
+                    "rainy",
                 ],
         )
     )
@@ -104,6 +140,18 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
             ),
         }
     ),
+    "kg": TuyaBLECategorySelectMapping(
+        products={
+            **dict.fromkeys(
+                [
+                    "mknd4lci"
+                ],  # Fingerbot Plus
+                [
+                    TuyaBLEFingerbotModeMapping(dp_id=101),
+                ],
+            ),
+        },
+    ),
     "szjqr": TuyaBLECategorySelectMapping(
         products={
             **dict.fromkeys(
@@ -116,7 +164,7 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
                 [
                     "blliqpsj",
                     "ndvkgsrm",
-                    "yiihr7zh", 
+                    "yiihr7zh",
                     "neq16kgd"
                 ],  # Fingerbot Plus
                 [
@@ -129,6 +177,19 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
                     "5xhbk964"],  # Fingerbot
                 [
                     TuyaBLEFingerbotModeMapping(dp_id=8),
+                ],
+            ),
+        },
+    ),
+    "kg": TuyaBLECategorySelectMapping(
+        products={
+            **dict.fromkeys(
+                [
+                    "mknd4lci",
+                    "riecov42"
+                ],  # Fingerbot Plus
+                [
+                    TuyaBLEFingerbotModeMapping(dp_id=101),
                 ],
             ),
         },
@@ -201,6 +262,14 @@ mapping: dict[str, TuyaBLECategorySelectMapping] = {
                         entity_category=EntityCategory.CONFIG,
                     ),
                 ),
+            ],
+        },
+    ),
+    "sfkzq": TuyaBLECategorySelectMapping(
+        products={
+            "nxquc5lb": [ # Smart water timer - SOP10
+                TuyaBLEWeatherDelayMapping(dp_id=10),
+                TuyaBLESmartWeatherMapping(dp_id=13),
             ],
         },
     ),
