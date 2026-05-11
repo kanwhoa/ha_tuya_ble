@@ -4,13 +4,15 @@
 
 This integration supports Tuya devices connected via BLE.
 
-_Inspired by code of [@redphx](https://github.com/redphx/poc-tuya-ble-fingerbot)_
+_Fork of the [@PlusPlus-ua ha_tuya_ble](https://github.com/PlusPlus-ua/ha_tuya_ble) project_
 
 ## Installation
 
-Place the `custom_components` folder in your configuration directory (or add its contents to an existing `custom_components` folder). Alternatively install via [HACS](https://hacs.xyz/).
+Place the `custom_components` folder in your configuration directory (or add its contents to an existing `custom_components` folder). <!-- Alternatively install via [HACS](https://hacs.xyz/). -->
 
+<!--
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=PlusPlus-ua&repository=ha_tuya_ble&category=integration)
+-->
 
 ## Usage
 
@@ -20,39 +22,130 @@ The integration works locally, but connection to Tuya BLE device requires device
 
 ## Supported devices list
 
-* Fingerbots (category_id 'szjqr')
-  + Fingerbot (product_ids 'ltak7e1p', 'y6kttvd6', 'yrnk7mnn', 'nvr2rocq', 'bnt7wajf', 'rvdceqjh', '5xhbk964'), original device, first in category, powered by CR2 battery.
-  + Adaprox Fingerbot (product_id 'y6kttvd6'), built-in battery with USB type C charging.
-  + Fingerbot Plus (product_ids 'blliqpsj', 'ndvkgsrm', 'yiihr7zh', 'neq16kgd'), almost same as original, has sensor button for manual control.
-  + CubeTouch 1s (product_id '3yqdo5yt'), built-in battery with USB type C charging.
-  + CubeTouch II (product_id 'xhf790if'), built-in battery with USB type C charging.
+<table>
+    <thead>
+        <tr>
+            <th>Category identifier</th>
+            <th>Product Identifier</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="14"><code>szjqr</code></td>
+            <td><code>ltak7e1p</code></td>
+            <td rowspan="7">Fingerbot - original device, first in category, powered by CR2 battery</td>
+        </tr>
+        <tr>
+            <td><code>y6kttvd6</code></td>
+        </tr>
+        <tr>
+            <td><code>yrnk7mnn</code></td>
+        </tr>
+        <tr>
+            <td><code>nvr2rocq</code></td>
+        </tr>
+        <tr>
+            <td><code>bnt7wajf</code></td>
+        </tr>
+        <tr>
+            <td><code>rvdceqjh</code></td>
+        </tr>
+        <tr>
+            <td><code>5xhbk964</code></td>
+        </tr>
+        <tr>
+            <td><code>y6kttvd6</code></td>
+            <td>Adaprox Fingerbot - built-in battery with USB type C charging</td>
+        </tr>
+        <tr>
+            <td><code>blliqpsj</code></td>
+            <td rowspan="4">Fingerbot Plus - almost same as original, has sensor button for manual control</td>
+        </tr>
+        <tr>
+            <td><code>ndvkgsrm</code></td>
+        </tr>
+        <tr>
+            <td><code>yiihr7zh</code></td>
+        </tr>
+        <tr>
+            <td><code>neq16kgd</code></td>
+        </tr>
+        <tr>
+            <td><code>3yqdo5yt</code></td>
+            <td>CubeTouch 1s - built-in battery with USB type C charging.</td>
+        </tr>
+        <tr>
+            <td><code>xhf790if</code></td>
+            <td>CubeTouch II - built-in battery with USB type C charging.</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td><code>wsdcg</code></td>
+            <td><code>ojzlzzsw</code></td>
+            <td>Soil moisture sensor</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td><code>co2bj</code></td>
+            <td><code>59s19z5m</code></td>
+            <td>CO2 Detector</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td rowspan="2"><code>ms</code></td>
+            <td><code>ludzroix</code></td>
+            <td rowspan="2">Smart Lock</td>
+        </tr>
+        <tr>
+            <td><code>isk2p555</code></td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td rowspan="2"><code>wk</code></td>
+            <td><code>drlajpqc</code></td>
+            <td rowspan="2">Thermostatic Radiator Valve</td>
+        </tr>
+        <tr>
+            <td><code>nhj2j7su</code></td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td><code>znhsb</code></td>
+            <td><code>cdlandip</code></td>
+            <td>Smart water bottle</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td><code>ggq</code></td>
+            <td><code>6pahkcau</code></td>
+            <td>Irrigation computer</td>
+        </tr>
+    </tbody>
+</table>
 
-  All features available in Home Assistant, programming (series of actions) is implemented for Fingerbot Plus.
-  For programming exposed entities 'Program' (switch), 'Repeat forever', 'Repeats count', 'Idle position' and 'Program' (text). Format of program text is: 'position\[/time\];...' where position is in percents, optional time is in seconds (zero if missing).
+### Fingerbot notes
 
-* Temperature and humidity sensors (category_id 'wsdcg')
-  + Soil moisture sensor (product_id 'ojzlzzsw').
+All features available in Home Assistant, programming (series of actions) is implemented for Fingerbot Plus.
+For programming exposed entities 'Program' (switch), 'Repeat forever', 'Repeats count', 'Idle position' and 'Program' (text). Format of program text is: 'position\[/time\];...' where position is in percents, optional time is in seconds (zero if missing).
 
-* CO2 sensors (category_id 'co2bj')
-  + CO2 Detector (product_id '59s19z5m').
+## Contributors ✨
 
-* Smart Locks (category_id 'ms')
-  + Smart Lock (product_id 'ludzroix', 'isk2p555').
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
-* Climate (category_id 'wk')
-  + Thermostatic Radiator Valve (product_ids 'drlajpqc', 'nhj2j7su').
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 
-* Smart water bottle (category_id 'znhsb')
-  + Smart water bottle (product_id 'cdlandip')
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
 
-* Irrigation computer (category_id 'ggq')
-  + Irrigation computer (product_id '6pahkcau')
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-## Support project
-
-I am working on this integration in Ukraine. Our country was subjected to brutal aggression by Russia. The war still continues. The capital of Ukraine - Kyiv, where I live, and many other cities and villages are constantly under threat of rocket attacks. Our air defense forces are doing wonders, but they also need support. So if you want to help the development of this integration, donate some money and I will spend it to support our air defense.
-<br><br>
-<p align="center">
-  <a href="https://www.buymeacoffee.com/3PaK6lXr4l"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy me an air defense"></a>
-</p>
-
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
